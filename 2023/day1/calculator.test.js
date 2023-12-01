@@ -16,6 +16,6 @@ describe('When using the real file', () => {
   })
 
   it('part 2 results', async () => {
-    expect(await add('./files/actual1.txt')).toBe(0)
+    expect(await add('./files/actual2.txt')).toBe(0)
   })
 })

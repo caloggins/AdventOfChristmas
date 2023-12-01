@@ -24,29 +24,11 @@ describe('Extracting numbers', () => {
     { input: '4nineeightseven2', expected: 42 },
     { input: 'zoneight234', expected: 14 },
     { input: '7pqrstsixteen', expected: 76 },
-    { input: 'eightthree', expected: 83 },
-    { input: 'sevennine', expected: 79 }
+    { input: 'twone', expected: 21 },
+    { input: 'oneight', expected: 18 }
   ]
 
   theoretically(({ input, expected }) => '{input} should convert to {expected}', theories, theory => {
     expect(numbers(theory.input)).toBe(theory.expected)
-  })
-})
-
-describe('Converting numbers', () => {
-  const theories = [
-    { input: 'one', expected: 1 },
-    { input: 'two', expected: 2 },
-    { input: 'three', expected: 3 },
-    { input: 'four', expected: 4 },
-    { input: 'five', expected: 5 },
-    { input: 'six', expected: 6 },
-    { input: 'seven', expected: 7 },
-    { input: 'eight', expected: 8 },
-    { input: 'nine', expected: 9 }
-  ]
-
-  theoretically(({ input, expected }) => '{input} should convert to {expected}', theories, theory => {
-    expect(numberMap[theory.input]).toBe(theory.expected)
   })
 })

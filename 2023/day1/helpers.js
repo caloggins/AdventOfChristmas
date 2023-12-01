@@ -6,29 +6,25 @@ export const lines = async (input) => {
   return contents.split(pattern)
 }
 
-const numberFunction = (lookup, input) => {
-  return (lookup[input] || parseInt(input))
-}
+const tokenMap = [
+  { match: /one/g, token: 'o1e' },
+  { match: /two/g, token: 't2o' },
+  { match: /three/g, token: 't3e' },
+  { match: /four/g, token: 'f4r' },
+  { match: /five/g, token: 'f5e' },
+  { match: /six/g, token: 's6x' },
+  { match: /seven/g, token: 's7n' },
+  { match: /eight/g, token: 'e8t' },
+  { match: /nine/g, token: 'n9e' }
+]
 
 export const numbers = (input) => {
-  const pattern = /\d|one|two|three|four|five|six|seven|eight|nine/gi
+  tokenMap.map(o => {
+    input = input.replace(o.match, o.token)
+    return input
+  })
 
-  const matches = Array.from(input.matchAll(pattern))
+  const matches = Array.from(input.matchAll(/\d/g))
 
-  const first = numberFunction(numberMap, matches[0])
-  const second = numberFunction(numberMap, matches[matches.length - 1])
-
-  return (first * 10) + second
-}
-
-export const numberMap = {
-  one: 1,
-  two: 2,
-  three: 3,
-  four: 4,
-  five: 5,
-  six: 6,
-  seven: 7,
-  eight: 8,
-  nine: 9
+  return parseInt(matches[0] + matches[matches.length - 1])
 }
