@@ -1,27 +1,52 @@
-import { lines, numbers } from './helpers'
+import { lines, numbers, numberMap } from './helpers'
+import theoretically from 'jest-theories'
 
 describe('Reading the file', () => {
   it('returns the contents of the file', async () => {
-    const contents = await lines('./files/sample.txt')
+    const expected = ['1abc2', 'pqr3stu8vwx', 'a1b2c3d4e5f', 'treb7uchet']
 
-    expect(contents).toStrictEqual(['1abc2', 'pqr3stu8vwx', 'a1b2c3d4e5f', 'treb7uchet'])
+    const contents = await lines('./files/sample1.txt')
+
+    expect(contents).toStrictEqual(expected)
   })
 })
 
 describe('Extracting numbers', () => {
-  it('handles numbers on ends', () => {
-    expect(numbers('1abc2')).toBe(12)
-  })
+  const theories = [
+    { input: '1abc2', expected: 12 },
+    { input: 'pqr3stu8vwx', expected: 38 },
+    { input: 'a1b2c3d4e5f', expected: 15 },
+    { input: 'treb7uchet', expected: 77 },
+    { input: 'two1nine', expected: 29 },
+    { input: 'abcone2threexyz', expected: 13 },
+    { input: 'eightwothree', expected: 83 },
+    { input: 'xtwone3four', expected: 24 },
+    { input: '4nineeightseven2', expected: 42 },
+    { input: 'zoneight234', expected: 14 },
+    { input: '7pqrstsixteen', expected: 76 },
+    { input: 'eightthree', expected: 83 },
+    { input: 'sevennine', expected: 79 }
+  ]
 
-  it('handles numbers inside', () => {
-    expect(numbers('pqr3stu8vwx')).toBe(38)
+  theoretically(({ input, expected }) => '{input} should convert to {expected}', theories, theory => {
+    expect(numbers(theory.input)).toBe(theory.expected)
   })
+})
 
-  it('handles more than 2 numbers', () => {
-    expect(numbers('a1b2c3d4e5f')).toBe(15)
-  })
+describe('Converting numbers', () => {
+  const theories = [
+    { input: 'one', expected: 1 },
+    { input: 'two', expected: 2 },
+    { input: 'three', expected: 3 },
+    { input: 'four', expected: 4 },
+    { input: 'five', expected: 5 },
+    { input: 'six', expected: 6 },
+    { input: 'seven', expected: 7 },
+    { input: 'eight', expected: 8 },
+    { input: 'nine', expected: 9 }
+  ]
 
-  it('handles one number', () => {
-    expect(numbers('treb7uchet')).toBe(77)
+  theoretically(({ input, expected }) => '{input} should convert to {expected}', theories, theory => {
+    expect(numberMap[theory.input]).toBe(theory.expected)
   })
 })
