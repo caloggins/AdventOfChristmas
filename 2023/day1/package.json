@@ -1,5 +1,4 @@
 {
-  "dependencies": {},
   "standard": {
     "env": [
       "jest"
@@ -18,11 +17,12 @@
     "test": "jest --watch"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
     "@babel/plugin-transform-modules-commonjs": "^7.23.3",
     "@types/jest": "^29.5.10",
     "babel-eslint": "^10.1.0",
     "eslint-plugin-html": "^7.1.0",
+    "jest": "^29.7.0",
+    "jest-theories": "^1.5.1",
     "standard": "^17.1.0"
   }
 }
