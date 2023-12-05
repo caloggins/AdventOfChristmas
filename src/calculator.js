@@ -1,9 +1,8 @@
 import { lines } from './loader'
-import { getPowers } from './parser'
+import { findPartNumbers } from './parser'
 
-export const add = async (file, limits) => {
-  const powers = (await lines(file))
-    .map(line => getPowers(line))
+export const add = async (file) => {
+  const parts = findPartNumbers(await lines(file))
 
-  return powers.reduce((a, b) => a + b)
+  return parts.reduce((a, b) => a + b)
 }
