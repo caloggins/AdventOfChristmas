@@ -9,3 +9,5 @@ I decided to do this in JS for two reasons. Firstly, it's not been my primary la
 Day 1 was okay, until part 2. The test criteria given for part 2 did not reflect the actual problem. That was annoying. I used the same code to solve both parts.
 
 Day 2 was pretty basic. I was *really* tired, lol. Part 1 took a while to get through due to brain fog (damn you 99 Bananas). I'm sure it's way uglier than it needed to be. Part 2 was pretty simple. The 2 parts are done in separate folders.
+
+Day 3 was a real pita. Firstly, I fell way behind. Part 1 was pretty easy enough. Part 2 was the pain. The sample didn't illustrate all the edge cases. I broke down, and snagged a few sample sets from the Reddit thread.

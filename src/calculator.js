@@ -1,8 +1,12 @@
 import { lines } from './loader'
-import { findPartNumbers } from './parser'
+import { findGearRatios } from './ratios'
 
 export const add = async (file) => {
-  const parts = findPartNumbers(await lines(file))
+  const data = await lines(file)
 
-  return parts.reduce((a, b) => a + b)
+  const ratios = findGearRatios(data)
+
+  if (ratios.length === 0) { return 0 }
+
+  return ratios.reduce((a, b) => a + b)
 }
