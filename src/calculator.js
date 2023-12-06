@@ -1,27 +1,51 @@
-const getNumbers = (input) => {
+const parseNumbers = (input) => {
   const matches = [...input.matchAll(/\d+/g)]
   return matches.map(m => parseInt(m))
 }
 
-const getPoints = (card) => {
+const createCard = (card) => {
   const raw = card.split(/:|\|/)
 
-  const winningList = getNumbers(raw[1])
-  const ownList = getNumbers(raw[2])
+  const winningList = parseNumbers(raw[1])
+  const ownList = parseNumbers(raw[2])
 
   const matched = ownList.filter(o => winningList.includes(o))
 
-  if (matched.length === 0) { return 0 }
+  return {
+    wins: matched.length,
+    count: 1
+  }
+}
 
-  return 1 * Math.pow(2, matched.length - 1)
+const buildListOfCards = (input, row = 0) => {
+  if (row >= input.length) {
+    return []
+  }
+
+  return [createCard(input[row]), ...buildListOfCards(input, row + 1)]
+}
+
+const distributeWins = (cards, row = 0) => {
+  if (row >= cards.length) {
+    return
+  }
+
+  for (let i = 0; i < cards[row].count; i++) {
+    for (let i = 1; i <= cards[row].wins; i++) {
+      if (row + i < cards.length) {
+        cards[row + i].count++
+      }
+    }
+  }
+
+  distributeWins(cards, ++row)
 }
 
 export const add = (input) => {
-  let cardPoints = []
+  const cards = buildListOfCards(input)
 
-  for (let card = 0; card < input.length; card++) {
-    cardPoints = [...cardPoints, getPoints(input[card])]
-  }
+  distributeWins(cards)
 
-  return cardPoints.reduce((a, b) => a + b)
+  const counts = cards.map(o => o.count)
+  return counts.reduce((a, b) => a + b)
 }

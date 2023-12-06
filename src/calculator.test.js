@@ -4,7 +4,7 @@ import { add } from './calculator'
 
 describe('the calculator can processes the files', () => {
   const theories = [
-    { input: './files/sample.txt', expected: 13 },
+    { input: './files/sample.txt', expected: 30 },
     { input: './files/actual.txt', expected: 0 }
   ]
 
