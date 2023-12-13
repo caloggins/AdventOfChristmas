@@ -1,37 +1,13 @@
-import { buildMap } from './buildMap'
+import { loader } from './loader.js'
+import { maps } from './maps.js'
+import { seedRanges } from './seeds.js'
 
-const seeds = (data, row) => {
-  return [...data[row].matchAll(/\d+/g)].map(o => parseInt(o))
-}
+export const parseFile = async (path) => {
+  const contents = await loader(path)
+  const data = { }
 
-const mapSourceToDestination = (source, map) => {
-  for (const [destinationStart, sourceStart, range] of map) {
-    if (source >= sourceStart && source < (sourceStart + range)) {
-      return (destinationStart - sourceStart) + source
-    }
-  }
-  return source
-}
+  data.seeds = seedRanges(contents[0])
+  data.maps = maps(contents, 2)
 
-const maps = (data, row, sources) => {
-  const map = buildMap(data, row)
-
-  let destinations = []
-  for (let pos = 0; pos < sources.length; pos++) {
-    destinations = [...destinations, mapSourceToDestination(sources[pos], map)]
-  }
-  return destinations
-}
-
-const processRow = (data, row, locations) => {
-  if (/map:/g.test(data[row])) { return maps(data, row, locations) }
-  if (/seeds:/g.test(data[row])) { return seeds(data, row) }
-  return locations
-}
-
-export const processFile = (data, row = 0, locations = []) => {
-  for (row = 0; row < data.length; row++) {
-    locations = processRow(data, row, locations)
-  }
-  return locations
+  return data
 }
