@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "standard": {
     "env": [
       "jest"
